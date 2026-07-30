@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__APP_NAME__</title>
+<meta name="description" content="__APP_NAME__ — açıklamanı buraya yaz.">
+<link rel="canonical" href="https://__DOMAIN__/">
+<meta name="theme-color" content="#3A5A9B">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="__APP_NAME__">
+<meta property="og:title" content="__APP_NAME__">
+<meta property="og:description" content="__APP_NAME__ — açıklamanı buraya yaz.">
+<meta property="og:url" content="https://__DOMAIN__/">
+<meta property="og:image" content="https://__DOMAIN__/assets/og-image.png">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "__APP_NAME__",
+  "url": "https://__DOMAIN__/",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "iOS, Android",
+  "inLanguage": "tr",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" }
+}
+</script>
+
+<style>
+  :root {
+    --accent: #3A5A9B; --accent-deep: #26406F; --highlight: #B4874A;
+    --surface: #FAFAF8; --surface-deep: #F0F0EC; --ink: #22252B; --ink-soft: #5F6570; --border: #DFE0DB;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #8FAEE0; --accent-deep: #B6CCF0; --highlight: #D9AE6E;
+      --surface: #1B1D21; --surface-deep: #24272C; --ink: #ECEEF2; --ink-soft: #A5AAB4; --border: #33373D;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--surface); line-height: 1.6; }
+  h1, h2 { font-weight: 600; margin: 0 0 12px; line-height: 1.25; }
+  p { margin: 0 0 16px; color: var(--ink-soft); }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  header.site { position: sticky; top: 0; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); z-index: 10; }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+  .brand { font-size: 18px; font-weight: 600; text-decoration: none; }
+  nav.links { display: flex; gap: 20px; font-size: 14px; }
+  nav.links a { text-decoration: none; color: var(--ink-soft); }
+  .cta-btn { background: var(--accent); color: var(--surface) !important; padding: 9px 18px; border-radius: 999px; font-size: 14px; text-decoration: none; }
+  .hero { padding: 88px 0 64px; text-align: center; }
+  .hero h1 { font-size: clamp(30px, 6vw, 48px); }
+  .hero p { font-size: 18px; max-width: 620px; margin: 0 auto 28px; }
+  .features { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); padding: 24px 0 72px; }
+  .card { background: var(--surface-deep); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+  .card h2 { font-size: 17px; }
+  .card p { margin: 0; font-size: 14px; }
+  footer.site { border-top: 1px solid var(--border); padding: 28px 0; font-size: 13px; color: var(--ink-soft); }
+  footer.site .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/">__APP_NAME__</a>
+    <nav class="links">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="/privacy.html">Gizlilik</a>
+      <a class="cta-btn" href="#indir">İndir</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>__APP_NAME__</h1>
+    <p>Tek cümlelik değer önerini buraya yaz. Kullanıcı ne kazanıyor?</p>
+    <a class="cta-btn" id="indir" href="#">App Store'da indir</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="features" id="ozellikler">
+    <div class="card"><h2>Özellik bir</h2><p>Kısa açıklama.</p></div>
+    <div class="card"><h2>Özellik iki</h2><p>Kısa açıklama.</p></div>
+    <div class="card"><h2>Özellik üç</h2><p>Kısa açıklama.</p></div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="yil">2026</span> __APP_NAME__</span>
+    <span><a href="/privacy.html">Gizlilik Politikası</a> · <a href="/terms.html">Kullanım Şartları</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById("yil").textContent = new Date().getFullYear();</script>
+</body>
+</html>

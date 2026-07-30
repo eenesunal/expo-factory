@@ -1,0 +1,16 @@
+[
+  {
+    "entity_id": "mekan-42",
+    "category": "kadikoy",
+    "reference_label": "Moda Sahili, Kadıköy",
+    "content": "Deniz kenarında uzun bir yürüyüş parkuru. Akşamüstü kalabalık, sabah sakin. Ücretsiz, giriş saati yok. Yakınında kafeler ve bisiklet kiralama noktası var.",
+    "sort_key": 1
+  },
+  {
+    "entity_id": "mekan-43",
+    "category": "kadikoy",
+    "reference_label": "Yeldeğirmeni Duvar Resimleri",
+    "content": "Sokak sanatı rotası. Yaklaşık bir saatlik yürüyüşle on beş kadar büyük duvar resmi görülebilir. Hafta içi gündüz saatleri en sakin zaman.",
+    "sort_key": 2
+  }
+]

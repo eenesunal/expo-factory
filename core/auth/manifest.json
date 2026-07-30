@@ -1,0 +1,20 @@
+{
+  "name": "auth",
+  "description": "Supabase anonim oturum + e-posta OTP ile hesaba yükseltme, hesap silme",
+  "dependsOn": ["app-shell"],
+  "envVars": ["EXPO_PUBLIC_SUPABASE_URL", "EXPO_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"],
+  "packageDependencies": [
+    "@supabase/supabase-js@^2.110.7",
+    "@react-native-async-storage/async-storage@2.2.0"
+  ],
+  "filesToCopy": ["src", "supabase"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Supabase Dashboard > Auth > Providers: \"Anonymous sign-ins\" açık olmalı (anonim oturum bunun üzerine kurulu).",
+    "Supabase Dashboard > Auth > Email Templates: \"Magic Link\" VE \"Change Email Address\" şablonlarında `{{ .Token }}` kullan — yoksa kullanıcıya 6 haneli kod yerine link gider ve OTP ekranı çalışmaz.",
+    "`supabase functions deploy delete-account` — Apple Guideline 5.1.1(v) hesap silmeyi zorunlu kılıyor.",
+    "App Store review için: reviewer gerçek e-postaya gelen OTP'yi göremez. Admin API ile sabit şifreli bir review hesabı oluşturup `src/lib/auth.ts` içine (yorumdaki desene göre) bir bypass ekle ve App Review notlarında Apple'a bildir."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "marketing-site",
+  "description": "docs/ altında GitHub Pages ile yayınlanan tanıtım sitesi + gizlilik/şartlar sayfaları (App Store için zorunlu)",
+  "dependsOn": ["app-shell"],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["docs"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "GitHub repo > Settings > Pages: Source = \"Deploy from a branch\", Branch = main, Folder = /docs.",
+    "Özel domain kullanacaksan: `docs/CNAME` içine domainini yaz, domain sağlayıcında A kaydı (185.199.108-111.153) ya da CNAME (<kullanıcı>.github.io) ekle, Pages ayarlarında \"Enforce HTTPS\"i işaretle. Kullanmayacaksan docs/CNAME'i SİL.",
+    "docs/privacy.html ve docs/terms.html içindeki iletişim e-postası ve veri toplama açıklamalarını gerçek duruma göre düzelt — App Store Connect gizlilik politikası URL'si ZORUNLU bir alan.",
+    "docs/assets/ içine og-image.png (1200x630) ve favicon.png koy — yoksa paylaşım kartları boş görünür."
+  ]
+}

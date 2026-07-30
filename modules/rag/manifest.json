@@ -1,0 +1,20 @@
+{
+  "name": "rag",
+  "description": "Hibrit arama (embedding + trigram, RRF ile birleştirilmiş) + kaynağa dayalı LLM cevabı, cevap cache'i",
+  "dependsOn": [],
+  "envVars": ["OPENAI_API_KEY", "ANTHROPIC_API_KEY", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_ACCESS_TOKEN"],
+  "packageDependencies": [],
+  "filesToCopy": ["src", "supabase", "scripts"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Supabase Dashboard > Database > Extensions: `vector` ve `pg_trgm` açık olmalı (schema.sql `create extension` ile deniyor ama bazı planlarda elle açmak gerekir).",
+    "`supabase secrets set OPENAI_API_KEY=... ANTHROPIC_API_KEY=...` (bunlar EAS'a DEĞİL, edge function secret'larına gider — uygulamaya gömülmemeli).",
+    "Belgelerini `scripts/documents.example.json` formatında hazırla ve `node scripts/embed-documents.mjs documents.json` ile yükle (embedding maliyeti: text-embedding-3-small ile ~1000 belge birkaç sent).",
+    "Veri yüklendikten SONRA HNSW index'i oluştur (schema.sql'in sonundaki satır) — boş tabloda oluşturulan index kötü performans verir.",
+    "`supabase functions deploy ask-question`",
+    "Kredi düşümü istiyorsan: `credits` modülünü de kur ve `supabase secrets set RAG_CREDIT_POOL=default`. Değişken set edilmezse kredi mantığı tamamen atlanır.",
+    "`schema.sql` içindeki Türkçe soru-kalıbı stopword listesini kendi dilin/alan adın için gözden geçir — bu liste arama kalitesinin en önemli ayarı."
+  ]
+}

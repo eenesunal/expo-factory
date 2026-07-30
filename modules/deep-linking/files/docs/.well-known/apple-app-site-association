@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TEAMID.__BUNDLE_ID__"],
+        "components": [{ "/": "/*", "comment": "tüm yollar uygulamada açılır" }]
+      }
+    ]
+  }
+}

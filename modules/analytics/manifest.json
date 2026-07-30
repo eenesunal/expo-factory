@@ -1,0 +1,16 @@
+{
+  "name": "analytics",
+  "description": "Olay takibi (PostHog) — ince bir track() sarmalayıcı, soyutlama katmanı yok",
+  "dependsOn": [],
+  "envVars": ["EXPO_PUBLIC_POSTHOG_KEY", "EXPO_PUBLIC_POSTHOG_HOST"],
+  "packageDependencies": ["posthog-react-native@^3.3.9"],
+  "filesToCopy": ["src"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "posthog.com'da ücretsiz proje aç (ya da self-host et), Project API Key'i EXPO_PUBLIC_POSTHOG_KEY olarak .env'e yaz. Host: https://eu.i.posthog.com (AB) veya https://us.i.posthog.com.",
+    "Key set edilmezse track() sessizce hiçbir şey yapmaz — analytics'i sonra eklemek için kodu değiştirmek gerekmez.",
+    "App Store Connect > App Privacy: analytics kullanımını beyan et (\"Product Interaction\", \"Usage Data\"). Beyan etmemek reddedilme sebebi. Gizlilik politikasına da ekle.",
+    "Kişisel veri (e-posta, ad, konum) event property'sine KOYMA — identify() dışında."
+  ]
+}

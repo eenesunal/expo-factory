@@ -1,0 +1,8 @@
+node_modules/
+package-lock.json
+.env
+.DS_Store
+
+# create.mjs'in ürettiği örnek/deneme projeleri
+/out/
+/tmp-*/

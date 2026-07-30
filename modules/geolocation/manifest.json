@@ -1,0 +1,26 @@
+{
+  "name": "geolocation",
+  "description": "Konum izni + okunabilir yer adı + \"yakındakiler\" sorgusu (Haversine, PostGIS gerekmez)",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": ["expo-location@~57.0.5"],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Yakınındaki sonuçları gösterebilmek için konumuna ihtiyacımız var."
+        }
+      ]
+    ]
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "app.json'daki `locationWhenInUsePermission` metni iOS izin dialogunda aynen görünür. Apple somut gerekçe istiyor — genel bir ifade reddedilme sebebi olabilir.",
+    "Arka planda konum İSTEMİYORSAN `requestForegroundPermissionsAsync` yeterli (bu modül böyle yapıyor). Arka plan konumu Apple'dan ek gerekçe ister ve review'ı zorlaştırır.",
+    "`places` tablosunu kullanmak zorunda değilsin — schema.sql'deki `nearby_places` fonksiyonunu kendi tablonun lat/lon kolonlarıyla düzenleyip tabloyu sil.",
+    "Konumu asla URL query string'ine koyma; log'lara ve üçüncü taraflara sızar."
+  ]
+}

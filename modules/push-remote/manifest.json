@@ -1,0 +1,18 @@
+{
+  "name": "push-remote",
+  "description": "Sunucudan kullanıcıya uzaktan push bildirimi (push token kaydı + Expo push API'sine gönderen edge function)",
+  "dependsOn": [],
+  "envVars": ["PUSH_ADMIN_SECRET"],
+  "packageDependencies": ["expo-constants@~57.0.1", "expo-device@~57.0.1"],
+  "filesToCopy": ["src", "supabase"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "iOS: `eas credentials` ile bir APNs key oluştur (EAS bunu otomatik yapabilir). Push, development build ya da gerçek build gerektirir — simülatörde ÇALIŞMAZ.",
+    "Android: `eas credentials` ile FCM V1 service account key'ini yükle (Firebase Console'dan indirilen JSON).",
+    "`supabase secrets set PUSH_ADMIN_SECRET=<rastgele-secret>` ve `supabase functions deploy send-push --no-verify-jwt`.",
+    "send-push SUNUCUDAN SUNUCUYA bir fonksiyon — uygulamadan ASLA çağırma, secret'ı uygulamaya gömme. Cron/admin script'inden çağır.",
+    "Uygulama açılışında (oturum kurulduktan sonra) `registerPushToken()` çağır — token cihaz/kurulum başına değişir."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "likes",
+  "description": "Herhangi bir varlık için beğeni (entity_id bazlı) + toplam sayı + en çok beğenilenler listesi",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "`entity_id` serbest bir metin — birden fazla varlık türünü beğenilebilir yapacaksan ad alanı kullan (\"post:12\", \"kart:af-9\").",
+    "Beğeni sayıları `security definer` fonksiyonlarla sunuluyor: kimin beğendiği asla açığa çıkmaz, sadece agregat döner."
+  ]
+}

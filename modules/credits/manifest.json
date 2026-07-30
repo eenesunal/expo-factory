@@ -1,0 +1,16 @@
+{
+  "name": "credits",
+  "description": "Tüketilebilir kredi sistemi (havuz bazlı bakiye, atomik harcama/ekleme RPC'leri, denetim logu)",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "`src/lib/creditProducts.ts` içindeki havuz adlarını ve paket boyutlarını kendi uygulamana göre düzenle.",
+    "Yeni hesaba verilecek ücretsiz kredi miktarını schema.sql'deki `grant_signup_credits()` fonksiyonunda ayarla.",
+    "`spend_credit` sadece service_role'e açık — client'tan DOĞRUDAN çağırma, bir edge function'ın içinden çağır (yoksa kullanıcı kendi bakiyesini manipüle edebilir)."
+  ]
+}

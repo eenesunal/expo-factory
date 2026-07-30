@@ -1,0 +1,16 @@
+{
+  "name": "paywall-gate",
+  "description": "\"Bu özellik sadece Pro'da\" — abonelik entitlement'ına göre içeriği açan genel gate bileşeni",
+  "dependsOn": ["revenuecat"],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "RevenueCat Dashboard > Entitlements: bir entitlement oluştur (örn. \"pro\") ve abonelik ürünlerini ona bağla. `<Paywalled entitlement=\"pro\">` bu adı kullanır.",
+    "Bu modül ABONELİK entitlement'ı kontrol eder — tüketilebilir kredi DEĞİL. Kredi bazlı bir model istiyorsan `credits` modülünü kullan.",
+    "Paywall ekranında fiyatı RevenueCat'in verdiği `priceString` ile göster (elle yazılan fiyat para birimi/bölge değişince yanlış olur ve Apple bunu reddedebilir).",
+    "Abonelik satıyorsan görünür bir \"Satın Almaları Geri Yükle\" butonu ZORUNLU (Guideline 3.1.1) — `restorePurchases()` hazır."
+  ]
+}

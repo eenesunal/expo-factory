@@ -1,0 +1,17 @@
+{
+  "name": "moderation",
+  "description": "Kullanıcı içeriğini raporlama + kullanıcı engelleme (Apple Guideline 1.2 için UGC uygulamalarında zorunlu)",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Kendi hesabını moderatör yap: Supabase SQL Editor'de `update profiles set is_moderator = true where id = '<senin-user-id>';`",
+    "Raporları Supabase Studio'dan (Table Editor > reports) elle incele. AYRI BİR ADMİN PANELİ KURMA — başlangıç için Studio yeterli, gerçekten günlük onlarca rapor gelene kadar panel yazmak zaman kaybı.",
+    "App Review notlarına şunu yaz: uygunsuz içerik raporlarını 24 saat içinde inceleyip kaldırdığını, ve kullanıcıların birbirini engelleyebildiğini. Apple bunu açıkça arıyor.",
+    "`docs/terms.html` içine içerik kurallarını (neyin yasak olduğunu) ekle."
+  ]
+}

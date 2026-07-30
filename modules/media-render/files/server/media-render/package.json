@@ -1,0 +1,17 @@
+{
+  "name": "media-render",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "render:test": "node src/render-test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ffmpeg-static": "^5.2.0",
+    "opentype.js": "^2.0.0",
+    "sharp": "^0.33.5"
+  }
+}

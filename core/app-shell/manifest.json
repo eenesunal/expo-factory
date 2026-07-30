@@ -1,0 +1,33 @@
+{
+  "name": "app-shell",
+  "description": "Expo app iskeleti: navigation, tema, PressableScale, AnimatedModal, açılış (splash) akışı",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [
+    "expo@~57.0.6",
+    "expo-dev-client@~57.0.7",
+    "expo-haptics@~57.0.1",
+    "expo-status-bar@~57.0.1",
+    "@expo/vector-icons@^15.0.2",
+    "@react-navigation/native@^7.3.10",
+    "@react-navigation/native-stack@^7.18.2",
+    "react@19.2.3",
+    "react-native@0.86.0",
+    "react-native-safe-area-context@~5.7.0",
+    "react-native-screens@4.25.2"
+  ],
+  "filesToCopy": [
+    "package.json",
+    "app.json",
+    "tsconfig.json",
+    "index.ts",
+    "App.tsx",
+    ".gitignore",
+    "assets",
+    "src"
+  ],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": []
+}

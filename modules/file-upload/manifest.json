@@ -1,0 +1,26 @@
+{
+  "name": "file-upload",
+  "description": "Galeriden/kameradan görsel seçip Supabase Storage'a yükleme (sıkıştırmalı), avatar örneğiyle",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": ["expo-image-picker@~57.0.5"],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Profil fotoğrafı seçebilmek için galerinize erişim izni gerekiyor.",
+          "cameraPermission": "Fotoğraf çekebilmek için kamera izni gerekiyor."
+        }
+      ]
+    ]
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "schema.sql `avatars` bucket'ını ve RLS politikalarını oluşturur. Başka bir bucket istiyorsan schema.sql'deki bucket adını değiştir (politikalardaki adı da).",
+    "Bucket `public: true` — dosya URL'leri tahmin edilemez olsa da HERKESE AÇIK. Özel dosyalar için `public: false` yapıp `createSignedUrl()` kullan.",
+    "Yüklenen dosyaların yolu `<user_id>/<dosya>` biçiminde olmalı — RLS politikaları klasör adının kullanıcı id'si olmasına dayanıyor."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "qr-scan",
+  "description": "Kamera ile QR / barkod okuma ekranı",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": ["expo-camera@~57.0.5"],
+  "filesToCopy": ["src"],
+  "appJson": {
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "QR kod okuyabilmek için kamera izni gerekiyor."
+        }
+      ]
+    ]
+  },
+  "navigationScreens": [
+    { "name": "Scan", "component": "ScanScreen", "importPath": "./src/screens/ScanScreen" }
+  ],
+  "setupSteps": [
+    "Kamera Expo Go'da kısıtlı çalışır — development build ile test et (`eas build --profile development`).",
+    "app.json'daki `cameraPermission` metni iOS izin dialogunda aynen görünür; Apple somut gerekçe istiyor, kendi kullanımına göre düzenle.",
+    "Okunan veriyi doğrulamadan kullanma (URL ise şemasını kontrol et, kendi ID formatına uyuyor mu bak) — QR kodu dışarıdan gelen bir girdidir."
+  ]
+}

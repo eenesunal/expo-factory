@@ -1,0 +1,16 @@
+{
+  "name": "search",
+  "description": "LLM'siz, ucuz metin arama (pg_trgm trigram benzerliği) — aranabilir liste/filtre için",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Supabase Dashboard > Database > Extensions: `pg_trgm` açık olmalı.",
+    "ZATEN aranabilir bir tablon varsa `search_items` tablosunu kullanmak zorunda değilsin — schema.sql'deki `search_text` fonksiyonunu kendi tablonun adı/kolonlarıyla düzenle, tabloyu ve trigger'ı sil.",
+    "`search_items` kullanacaksan kayıtları kendi verinle senkron tutmayı unutma (trigger ya da uygulama kodundan upsert)."
+  ]
+}

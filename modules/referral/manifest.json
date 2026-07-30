@@ -1,0 +1,17 @@
+{
+  "name": "referral",
+  "description": "Davet kodu + ödül (davet eden ve edilen ikisine de kredi)",
+  "dependsOn": ["credits"],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Ödül miktarlarını ve havuzunu schema.sql'deki `redeem_referral` fonksiyonunda (REWARD_* sabitleri) ayarla.",
+    "Davet kodu her yeni hesaba trigger'la otomatik üretilir (8 karakter, karışabilecek harfler çıkarılmış).",
+    "Kod kullanımı SADECE BİR KEZ ve yeni hesaplar için geçerli — fonksiyon `referred_by` zaten doluysa reddediyor.",
+    "`deep-linking` modülünü de kurduysan davet linkini `shareableUrl('davet/' + code)` ile üretip kodu otomatik doldurabilirsin."
+  ]
+}

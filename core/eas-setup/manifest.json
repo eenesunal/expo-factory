@@ -1,0 +1,16 @@
+{
+  "name": "eas-setup",
+  "description": "eas.json iskeleti + .env'deki EXPO_PUBLIC_* değişkenlerini EAS'a yükleyen script",
+  "dependsOn": ["auth"],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["eas.json", "scripts"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "`npm install -g eas-cli && eas login && eas init` (app.json'a projectId yazar).",
+    "`node scripts/setup-eas-env.mjs production` — .env'deki her EXPO_PUBLIC_* değişkenini EAS'a kaydeder. BU ADIM ATLANIRSA production build'de tüm env değişkenleri undefined olur ve uygulama backend'e hiç bağlanamaz.",
+    "`eas.json`'da kullandığın build profilinde `\"environment\": \"production\"` (veya preview/development) satırının durduğunu doğrula — env değişkenleri ancak bu satırla build'e enjekte edilir.",
+    "`eas.json` > submit.production > ios: appleId / ascAppId / appleTeamId alanlarını kendi App Store Connect bilgilerinle doldur."
+  ]
+}

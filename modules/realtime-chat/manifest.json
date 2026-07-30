@@ -1,0 +1,18 @@
+{
+  "name": "realtime-chat",
+  "description": "Supabase Realtime ile canlı sohbet (oda bazlı mesajlar + kimin çevrimiçi olduğu / presence)",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [
+    { "name": "Chat", "component": "ChatScreen", "importPath": "./src/screens/ChatScreen", "params": "{ roomId: string }" }
+  ],
+  "setupSteps": [
+    "Supabase Dashboard > Database > Replication (ya da Realtime): `messages` tablosunu yayına ekle. schema.sql bunu `alter publication` ile deniyor ama bazı planlarda panelden onaylamak gerekiyor — bu adım atlanırsa mesajlar canlı GELMEZ (sadece yeniden yüklemede görünür).",
+    "APPLE GUIDELINE 1.2 (UGC): sohbet kullanıcı içeriğidir — `moderation` modülünü de kur, raporlama/engelleme olmadan review'dan geçmez.",
+    "Realtime bağlantısı kotaya tabidir (ücretsiz planda eşzamanlı bağlantı sınırı var). Ekrandan çıkarken kanalı kapatmayı unutma — useChat hook'u bunu yapıyor."
+  ]
+}

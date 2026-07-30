@@ -1,0 +1,20 @@
+{
+  "name": "media-render",
+  "description": "Sunucu tarafında paylaşılabilir görsel/video (SVG -> PNG -> mp4) üreten Docker servisi + client indirme/paylaşma",
+  "dependsOn": [],
+  "envVars": ["EXPO_PUBLIC_MEDIA_RENDER_URL", "EXPO_PUBLIC_MEDIA_RENDER_TOKEN"],
+  "packageDependencies": ["expo-file-system@~57.0.1", "expo-sharing@~57.0.6"],
+  "filesToCopy": ["src", "server"],
+  "appJson": {
+    "plugins": ["expo-sharing"]
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "`server/media-render`'ı Railway / Render / Fly.io'da \"deploy from Dockerfile\" ile yayına al (repo root'u değil, bu alt klasörü kök olarak seç).",
+    "Servise `MEDIA_RENDER_TOKEN` env değişkeni ver (rastgele bir secret); aynı değeri .env'e EXPO_PUBLIC_MEDIA_RENDER_TOKEN olarak yaz.",
+    "Deploy sonrası çıkan URL'i .env'e EXPO_PUBLIC_MEDIA_RENDER_URL olarak yaz ve `node scripts/setup-eas-env.mjs production` ile EAS'a da kaydet.",
+    "`src/render.js` içindeki `-threads 2` sınırını KALDIRMA — libx264 konteynerin yanıltıcı yüksek CPU sayısını görüp anında OOM'dan öldürülüyor.",
+    "`server/media-render/src/templates.js` içindeki kart tasarımını kendi markanla değiştir; fontları değiştirirsen `fonts/` klasörüne .ttf dosyalarını da koy (Dockerfile bunları sistem font dizinine kopyalayıp fc-cache çalıştırıyor).",
+    "Hata ararken HTTP durum koduna güvenme — `railway logs` (ya da platformunun canlı logu) ile ffmpeg'in gerçek hatasını izle."
+  ]
+}

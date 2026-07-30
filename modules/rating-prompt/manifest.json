@@ -1,0 +1,14 @@
+{
+  "name": "rating-prompt",
+  "description": "App Store/Play değerlendirme isteme — N. başarılı aksiyondan sonra bir kez sor, reddedilirse bir daha sorma",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": ["expo-store-review@~57.0.1"],
+  "filesToCopy": ["src"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "Değerlendirme dialogu SADECE App Store'dan/TestFlight'tan kurulmuş uygulamalarda görünür — development build'de hiçbir şey olmaz, bu normal.",
+    "iOS yılda en fazla 3 kez gösterir (sistem kuralı, kodla aşılamaz). Bu yüzden anı doğru seç: kullanıcı BAŞARILI bir şey tamamladıktan hemen sonra."
+  ]
+}

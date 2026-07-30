@@ -1,0 +1,32 @@
+{
+  "name": "deep-linking",
+  "description": "Paylaşılan linkten doğru ekrana düşme — custom scheme + iOS universal links / Android app links",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src", "docs"],
+  "appJson": {
+    "scheme": "__APP_SLUG__",
+    "ios": {
+      "associatedDomains": ["applinks:__DOMAIN__"]
+    },
+    "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [{ "scheme": "https", "host": "__DOMAIN__" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    }
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "`App.tsx`'teki `<NavigationContainer>`'a `linking={linking}` prop'unu ekle (import: `./src/lib/linking`). Bu tek satır olmadan hiçbir link ekrana düşmez.",
+    "`src/lib/linking.ts` içindeki `screens` eşlemesini kendi ekranlarına göre doldur.",
+    "iOS: `docs/.well-known/apple-app-site-association` içindeki appID'yi `<TEAM_ID>.<BUNDLE_ID>` olarak doldur. Dosya https://<domain>/.well-known/apple-app-site-association adresinden `application/json` olarak, YÖNLENDİRME OLMADAN servis edilmeli.",
+    "Android: `docs/.well-known/assetlinks.json` içindeki sha256_cert_fingerprints alanını `eas credentials` çıktısındaki SHA-256 ile doldur.",
+    "Test: `npx uri-scheme open <slug>://... --ios` ile custom scheme'i, gerçek cihazda Notes'a link yazıp dokunarak universal link'i test et (Safari'ye yazmak çalışmaz)."
+  ]
+}

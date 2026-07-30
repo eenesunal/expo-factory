@@ -1,0 +1,22 @@
+{
+  "name": "revenuecat",
+  "description": "Uygulama içi satın alma (RevenueCat SDK) + satın almayı krediye çeviren webhook",
+  "dependsOn": [],
+  "envVars": [
+    "EXPO_PUBLIC_REVENUECAT_IOS_KEY",
+    "EXPO_PUBLIC_REVENUECAT_ANDROID_KEY",
+    "REVENUECAT_WEBHOOK_SECRET"
+  ],
+  "packageDependencies": ["react-native-purchases@^10.4.3"],
+  "filesToCopy": ["src", "supabase"],
+  "appJson": {},
+  "navigationScreens": [],
+  "setupSteps": [
+    "RevenueCat projesi oluştur; iOS ve Android için ayrı app ekle, her birinin public SDK key'ini .env'e yaz (EXPO_PUBLIC_* — bunlar public, gömülmeleri sorun değil).",
+    "App Store Connect'te her ürün için IAP oluştur (Consumable = kredi, Auto-Renewable = abonelik), FİYAT ve İSİM alanlarını doldur, Apple onayına gönder. Ürünler \"Missing Metadata\" durumundayken gerçek satın alma ÇALIŞMAZ. Bu adım otomatikleştirilemez ve günler sürebilir — en erken başlanması gereken işlerden biri.",
+    "RevenueCat'te bu ürünleri tek bir Offering altında Package olarak ekle; ürün ID'lerini src/lib/creditProducts.ts ile birebir aynı tut.",
+    "`supabase functions deploy revenuecat-webhook --no-verify-jwt` (RevenueCat JWT göndermez, bu flag şart).",
+    "`supabase secrets set REVENUECAT_WEBHOOK_SECRET=...` ve RevenueCat Dashboard > Integrations > Webhooks içindeki \"Authorization header value\" alanına AYNI değeri yaz.",
+    "Webhook satın almayı krediye çevirir — bu yüzden yalnızca `credits` modülü de kuruluysa deploy et. Sadece abonelik satıyorsan webhook'a gerek yok, entitlement kontrolü client'ta yeterli (bkz. paywall-gate)."
+  ]
+}

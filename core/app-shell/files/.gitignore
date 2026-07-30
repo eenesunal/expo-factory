@@ -1,0 +1,44 @@
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# yerel env dosyaları — DİKKAT: bu yüzden EAS Build .env'i göremez,
+# EXPO_PUBLIC_* değişkenleri ayrıca `eas env:create` ile kaydedilmeli.
+.env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# üretilen native klasörler
+/ios
+/android
+
+# supabase CLI yerel state'i
+supabase/.temp/

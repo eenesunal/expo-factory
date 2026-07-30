@@ -1,0 +1,20 @@
+{
+  "name": "leaderboard",
+  "description": "Herhangi bir sayısal skora göre sıralama tablosu + kullanıcının kendi sırası",
+  "dependsOn": [],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {
+    "plugins": []
+  },
+  "navigationScreens": [
+    { "name": "Leaderboard", "component": "LeaderboardScreen", "importPath": "./src/screens/LeaderboardScreen" }
+  ],
+  "setupSteps": [
+    "Skor yazma client'tan yapılıyor (`submit_score` RPC, sadece kendi satırını yazabilir). Skorun hile açısından kritikse RPC grant'ını kaldırıp bir edge function'dan service_role ile yaz.",
+    "`board` kolonu farklı tabloları ayırır (\"haftalik\", \"toplam\", \"seviye-3\") — ayrı tablo açman gerekmez.",
+    "Kullanıcı adı göstermek için `profiles`'a `display_name` ekle ve LeaderboardScreen'de join et; `profiles`'ın RLS'i şu an sadece kendi satırını okumaya izin veriyor."
+  ]
+}

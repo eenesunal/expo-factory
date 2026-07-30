@@ -1,0 +1,27 @@
+{
+  "name": "auth-providers",
+  "description": "Sign in with Apple + Google ile giriş (core/auth'un e-posta OTP akışına ek)",
+  "dependsOn": [],
+  "envVars": ["EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID", "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID", "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID"],
+  "packageDependencies": [
+    "expo-apple-authentication@~57.0.1",
+    "expo-auth-session@~57.0.1",
+    "expo-crypto@~57.0.1",
+    "expo-web-browser@~57.0.1"
+  ],
+  "filesToCopy": ["src"],
+  "appJson": {
+    "scheme": "__APP_SLUG__",
+    "ios": { "usesAppleSignIn": true },
+    "plugins": ["expo-apple-authentication"]
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "Apple Developer > Certificates, Identifiers & Profiles > Identifiers: app ID'nde \"Sign in with Apple\" capability'sini aç.",
+    "Supabase Dashboard > Auth > Providers > Apple: etkinleştir, \"Client IDs\" alanına bundle identifier'ını yaz (native akışta secret gerekmez).",
+    "Google Cloud Console > APIs & Services > Credentials: iOS, Android ve Web için ayrı OAuth client ID oluştur; üçünü .env'e yaz. Android client'ta SHA-1 parmak izini gir (`eas credentials` ile alınır).",
+    "Supabase Dashboard > Auth > Providers > Google: etkinleştir; \"Authorized Client IDs\" alanına iOS + Android + Web client ID'lerini virgülle ayırarak ekle.",
+    "Apple kuralı: BAŞKA bir üçüncü taraf login (Google, Facebook) sunuyorsan Sign in with Apple ZORUNLU. Sadece e-posta OTP kullanıyorsan zorunlu değil.",
+    "Anonim oturumdaki veri OAuth girişinde otomatik TAŞINMAZ — src/lib/oauthProviders.ts içindeki nota bak."
+  ]
+}

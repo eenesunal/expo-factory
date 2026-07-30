@@ -1,0 +1,18 @@
+{
+  "name": "feed",
+  "description": "Gönderi + yorum akışı, sonsuz scroll, beğeniyle entegre (sosyal/topluluk uygulamaları)",
+  "dependsOn": ["likes"],
+  "envVars": [],
+  "packageDependencies": [],
+  "filesToCopy": ["src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {},
+  "navigationScreens": [
+    { "name": "Feed", "component": "FeedScreen", "importPath": "./src/screens/FeedScreen" }
+  ],
+  "setupSteps": [
+    "APPLE GUIDELINE 1.2 (UGC): kullanıcı içeriği barındıran uygulamalar raporlama VE engelleme mekanizması olmadan review'dan geçmez. `moderation` modülünü de kur.",
+    "Gönderi silme politikası RLS'te tanımlı: kullanıcı yalnızca kendi gönderisini siler. Moderatör silme işlemini Supabase Studio'dan ya da service_role ile yap.",
+    "Sonsuz scroll `FlatList` ile — çok uzun listelerde performans sorunu yaşarsan `@shopify/flash-list` kurup FlatList'i onunla değiştir (aynı API)."
+  ]
+}
