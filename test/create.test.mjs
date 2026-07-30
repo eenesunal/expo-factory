@@ -134,6 +134,11 @@ test("üretim: RAG'siz bir koleksiyon uygulaması", async () => {
     const pkg = JSON.parse(await readFile(join(target, "package.json"), "utf8"));
     assert.equal(pkg.name, "test-app");
     assert.ok(pkg.dependencies["expo-camera"], "qr-scan bağımlılığı eklenmedi");
+    // Hiçbir modül seçilmese de core'un kullandığı altyapı paketleri gelmeli
+    // (auth/notifications/rating-prompt AsyncStorage, rating-prompt/deep-linking
+    // expo-linking kullanıyor).
+    assert.ok(pkg.dependencies["@react-native-async-storage/async-storage"]);
+    assert.ok(pkg.dependencies["expo-linking"]);
     assert.ok(!pkg.dependencies["react-native-purchases"], "seçilmeyen modülün bağımlılığı eklendi");
 
     const appJson = JSON.parse(await readFile(join(target, "app.json"), "utf8"));

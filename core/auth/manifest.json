@@ -3,10 +3,7 @@
   "description": "Supabase anonim oturum + e-posta OTP ile hesaba yükseltme, hesap silme",
   "dependsOn": ["app-shell"],
   "envVars": ["EXPO_PUBLIC_SUPABASE_URL", "EXPO_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"],
-  "packageDependencies": [
-    "@supabase/supabase-js@^2.110.7",
-    "@react-native-async-storage/async-storage@2.2.0"
-  ],
+  "packageDependencies": ["@supabase/supabase-js@^2.110.7"],
   "filesToCopy": ["src", "supabase"],
   "schemaFragment": "schema.sql",
   "appJson": {},
