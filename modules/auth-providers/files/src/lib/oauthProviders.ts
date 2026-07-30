@@ -1,6 +1,7 @@
 import * as AppleAuthentication from "expo-apple-authentication";
 import * as Google from "expo-auth-session/providers/google";
 import { Platform } from "react-native";
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export const isAppleSignInAvailable = () =>
@@ -39,7 +40,7 @@ export async function signInWithApple(): Promise<{ error: string | null }> {
   } catch (err) {
     // Kullanıcı dialogu kapattıysa hata gösterme.
     if ((err as { code?: string }).code === "ERR_REQUEST_CANCELED") return { error: null };
-    console.error("Apple girişi hatası:", err);
+    reportError("Apple girişi hatası", err);
     return { error: "Giriş yapılamadı. Lütfen tekrar dene." };
   }
 }

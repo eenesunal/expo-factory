@@ -1,9 +1,15 @@
+import { reportError, setErrorUser } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 // Supabase'in İngilizce hata mesajlarını kullanıcıya gösterilecek Türkçe
 // karşılıklarına çevirir. Ham mesajı ASLA kullanıcıya göstermiyoruz ama
-// console.error ile logluyoruz — eşleşmeyen yeni bir hata deseni çıkınca
-// cihaz/Metro loglarından görülüp buraya eklenebilsin.
+// konsola yazıyoruz — geliştirirken Metro loglarından görülebilsin.
+//
+// Eşleşen desenler BEKLENEN kullanıcı hataları (yanlış kod, zaten kayıtlı,
+// rate limit): bunlar `reportError`'a gitmez, yoksa hata takibi gerçek
+// hataların görünmeyeceği kadar gürültüyle dolar. Sadece hiçbir desene uymayan
+// mesaj rapor edilir — yeni bir hata deseni çıktı, buraya eklenmesi gerek
+// demektir.
 function translateAuthError(message: string | null | undefined): string {
   console.error("Auth hatası (ham):", message);
   const msg = (message ?? "").toLowerCase();
@@ -28,6 +34,7 @@ function translateAuthError(message: string | null | undefined): string {
   if (msg.includes("error sending") && msg.includes("email")) {
     return "E-posta gönderilemedi. Lütfen birkaç dakika sonra tekrar dene.";
   }
+  reportError("Çevrilemeyen auth hatası", message);
   return "Bir sorun oluştu. Lütfen tekrar dene.";
 }
 
@@ -41,13 +48,19 @@ export async function ensureSession() {
   if (!isSupabaseConfigured || !supabase) return null;
 
   const { data } = await supabase.auth.getSession();
-  if (data.session) return data.session;
+  if (data.session) {
+    setErrorUser(data.session.user.id);
+    return data.session;
+  }
 
   const { data: signInData, error } = await supabase.auth.signInAnonymously();
   if (error) {
-    console.error("Anonim oturum açılamadı:", error.message);
+    reportError("Anonim oturum açılamadı", error.message);
     return null;
   }
+  // Bir hatayı hangi kullanıcının aldığını görmek triyajın yarısı. Sadece UUID
+  // gönderiyoruz — e-posta/ad geçirmiyoruz.
+  setErrorUser(signInData.session?.user.id ?? null);
   return signInData.session;
 }
 
@@ -138,5 +151,6 @@ export async function deleteAccount(): Promise<{ error: string | null }> {
   const { error } = await supabase.functions.invoke("delete-account");
   if (error) return { error: translateAuthError(error.message) };
   await supabase.auth.signOut();
+  setErrorUser(null);
   return { error: null };
 }

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as StoreReview from "expo-store-review";
+import { reportError } from "./reportError";
 
 const COUNT_KEY = "rating_success_count";
 const ASKED_KEY = "rating_asked";
@@ -32,7 +33,7 @@ export async function recordSuccessfulAction(): Promise<void> {
   try {
     await StoreReview.requestReview();
   } catch (err) {
-    console.error("Değerlendirme isteği başarısız:", err);
+    reportError("Değerlendirme isteği başarısız", err);
   }
 }
 

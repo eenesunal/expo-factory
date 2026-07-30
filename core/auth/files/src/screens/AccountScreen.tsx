@@ -5,6 +5,7 @@ import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-n
 import { PressableScale } from "../components/PressableScale";
 import { deleteAccount, getLinkedEmail } from "../lib/auth";
 import { notifySignedOut, type RootStackParamList } from "../lib/navigation";
+import { reportError } from "../lib/reportError";
 import { supabase } from "../lib/supabase";
 import { useTheme } from "../theme";
 
@@ -16,7 +17,7 @@ export function AccountScreen() {
   const refresh = useCallback(() => {
     getLinkedEmail()
       .then(setEmail)
-      .catch((err) => console.error("E-posta okunamadı:", err));
+      .catch((err) => reportError("E-posta okunamadı", err));
   }, []);
 
   useEffect(() => {

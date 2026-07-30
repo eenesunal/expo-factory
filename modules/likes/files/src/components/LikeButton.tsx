@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { isLiked, toggleLike } from "../lib/likes";
+import { reportError } from "../lib/reportError";
 import { useTheme } from "../theme";
 import { PressableScale } from "./PressableScale";
 
@@ -23,7 +24,7 @@ export function LikeButton({ entityId, count }: Props) {
       .then((value) => {
         if (active) setLiked(value);
       })
-      .catch((err) => console.error("Beğeni durumu okunamadı:", err));
+      .catch((err) => reportError("Beğeni durumu okunamadı", err));
     return () => {
       active = false;
     };
@@ -41,7 +42,7 @@ export function LikeButton({ entityId, count }: Props) {
       const actual = await toggleLike(entityId);
       setLiked(actual);
     } catch (err) {
-      console.error("Beğeni değiştirilemedi:", err);
+      reportError("Beğeni değiştirilemedi", err);
       setLiked(!next);
       setLocalCount((c) => (c === undefined ? c : c + (next ? -1 : 1)));
     }

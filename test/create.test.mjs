@@ -201,3 +201,49 @@ test("üretim: parametreli rota ve bağımlılık zinciri", async () => {
     await rm(target, { recursive: true, force: true });
   }
 });
+
+// error-tracking'in tüm mekanizması core dosyalarını ezmeye dayanıyor: modül
+// kendi reportError.ts ve index.ts'ini app-shell'inkilerin ÜZERİNE yazıyor.
+// Kopyalama sırası bozulursa modül sessizce hiçbir şey yapmaz — bu yüzden test.
+test("error-tracking core'un reportError.ts ve index.ts'ini ezer", async () => {
+  const { target } = await build(["error-tracking"]);
+  try {
+    const report = await readFile(join(target, "src", "lib", "reportError.ts"), "utf8");
+    assert.match(report, /@sentry\/react-native/, "core'un no-op sürümü ezilmemiş");
+    assert.match(report, /fingerprint: \[message\]/);
+
+    const index = await readFile(join(target, "index.ts"), "utf8");
+    assert.match(index, /Sentry\.init/);
+    assert.match(index, /Sentry\.wrap\(App\)/);
+
+    const pkg = JSON.parse(await readFile(join(target, "package.json"), "utf8"));
+    assert.ok(pkg.dependencies["@sentry/react-native"]);
+
+    const env = await readFile(join(target, ".env.example"), "utf8");
+    assert.match(env, /EXPO_PUBLIC_SENTRY_DSN=/);
+    assert.match(env, /SENTRY_AUTH_TOKEN=/);
+
+    // app-shell'in geri kalanı yerinde kalmalı (cp ezmiyor, birleştiriyor).
+    await readFile(join(target, "src", "lib", "navigation.ts"), "utf8");
+  } finally {
+    await rm(target, { recursive: true, force: true });
+  }
+});
+
+test("error-tracking seçilmezse core'un no-op reportError'ı kalır", async () => {
+  const { target } = await build(["likes"]);
+  try {
+    const report = await readFile(join(target, "src", "lib", "reportError.ts"), "utf8");
+    assert.match(report, /isErrorReportingEnabled = false/);
+    // Yorumlarda "Sentry" geçmesi normal — sızmaması gereken şey import.
+    assert.doesNotMatch(report, /@sentry\/react-native/, "seçilmeyen modülün kodu sızdı");
+
+    const index = await readFile(join(target, "index.ts"), "utf8");
+    assert.doesNotMatch(index, /Sentry/);
+
+    const pkg = JSON.parse(await readFile(join(target, "package.json"), "utf8"));
+    assert.ok(!pkg.dependencies["@sentry/react-native"]);
+  } finally {
+    await rm(target, { recursive: true, force: true });
+  }
+});

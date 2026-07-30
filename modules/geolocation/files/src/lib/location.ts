@@ -1,4 +1,5 @@
 import * as Location from "expo-location";
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type Coordinates = { latitude: number; longitude: number };
@@ -51,7 +52,7 @@ export async function nearby(
     p_limit: options?.limit ?? 50,
   });
   if (error || !data) {
-    if (error) console.error("Yakındakiler okunamadı:", error);
+    if (error) reportError("Yakındakiler okunamadı", error);
     return [];
   }
   return (

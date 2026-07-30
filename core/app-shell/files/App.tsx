@@ -12,6 +12,7 @@ import { resolveAppRoute } from "./src/lib/appRoute";
 import { ensureSession } from "./src/lib/auth";
 import { navigationRef, setSignOutListener, type RootStackParamList } from "./src/lib/navigation";
 import { useNotificationRouting } from "./src/lib/notificationRouting";
+import { reportError } from "./src/lib/reportError";
 import { AccountScreen } from "./src/screens/AccountScreen";
 import { AuthGateScreen } from "./src/screens/AuthGateScreen";
 import { HomeScreen } from "./src/screens/HomeScreen";
@@ -56,7 +57,7 @@ export default function App() {
       if (settled) return;
       settled = true;
       clearTimeout(timeoutId);
-      if (err) console.error("Oturum başlatılamadı:", err);
+      if (err) reportError("Oturum başlatılamadı", err);
       setSessionReady(true);
     }
 
@@ -76,7 +77,7 @@ export default function App() {
     // yeni bir anonim oturum kurup Home'a dönüyoruz (zorunlu giriş ekranına
     // düşürmüyoruz, Guideline 5.1.1(v)).
     setSignOutListener(() => {
-      ensureSession().catch((err) => console.error("Oturum yenilenemedi:", err));
+      ensureSession().catch((err) => reportError("Oturum yenilenemedi", err));
       if (navigationRef.isReady()) {
         navigationRef.reset({ index: 0, routes: [{ name: "Home" }] });
       }

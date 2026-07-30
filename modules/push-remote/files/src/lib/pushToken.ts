@@ -2,6 +2,7 @@ import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 // Oturum kurulduktan SONRA, uygulama açılışında çağır. Token cihaz/kurulum
@@ -62,6 +63,6 @@ export async function unregisterPushToken(): Promise<void> {
     const { data: token } = await Notifications.getExpoPushTokenAsync({ projectId });
     await supabase.from("push_tokens").delete().eq("expo_push_token", token);
   } catch (err) {
-    console.error("Push token silinemedi:", err);
+    reportError("Push token silinemedi", err);
   }
 }

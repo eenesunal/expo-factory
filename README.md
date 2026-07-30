@@ -33,7 +33,8 @@ npx expo start
 
 ```
 core/          # her projede var, seçilebilir değil
-  app-shell/       navigation, tema, PressableScale, AnimatedModal, açılış akışı
+  app-shell/       navigation, tema, PressableScale, AnimatedModal, açılış akışı,
+                   reportError() (hata takibi için tek geçiş noktası)
   auth/            Supabase anonim oturum + e-posta OTP + hesap silme
   eas-setup/       eas.json + .env'i EAS'a yükleyen script
   notifications/   yerel/zamanlanmış bildirim + bildirimden ekrana yönlendirme
@@ -44,6 +45,7 @@ modules/       # seçtiğin kadarı
   auth-providers   Sign in with Apple + Google
   credits          tüketilebilir kredi sistemi (atomik harcama/ekleme)
   deep-linking     paylaşılan linkten doğru ekrana düşme
+  error-tracking   Sentry ile crash/exception takibi + alert kuralları
   feed             gönderi + yorum akışı            → likes
   file-upload      Supabase Storage'a görsel yükleme
   geolocation      konum izni + "yakındakiler" (Haversine, PostGIS'siz)
@@ -205,7 +207,13 @@ Connect erişimi olan kişi tarafından yapılabilir, otomatikleştirilemez ve o
 yoksa uygulama **sonsuza dek** splash ekranında kalır. `App.tsx` bunu 8 saniyelik
 bir timeout + `.catch()` ile sarıyor. Aynı deseni açılışta beklediğin başka her
 şey (font yükleme, remote config) için tekrarla.
-→ `core/auth`, `core/app-shell`
+
+Ama dikkat: o `.catch()` uygulamayı kurtarırken hatayı da yutuyor ve production
+build'de `console.error` hiçbir yere gitmiyor. Kullanıcıda belirti "açılıyor ama
+boş" oluyor — tuzak #1'in ürettiği belirtinin aynısı. Bu yüzden yakalanan her
+hata `reportError()`'dan geçiyor; `modules/error-tracking` seçilirse aynı çağrılar
+Sentry'ye de gidiyor.
+→ `core/auth`, `core/app-shell`, `modules/error-tracking`
 
 ### 10. `app.json` > `name`, Xcode target adıyla eşleşmeli
 

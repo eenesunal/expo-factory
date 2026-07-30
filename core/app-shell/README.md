@@ -9,6 +9,9 @@ Expo uygulama iskeleti. Her projede var, seçilebilir değil.
 - `src/lib/navigation.ts` — `navigationRef` (React ağacı dışından yönlendirme) +
   `RootStackParamList`. Modül ekranları `// @factory:routes` işaretçisine eklenir.
 - `src/lib/appRoute.ts` (+ testi) — splash/main kararı
+- `src/lib/reportError.ts` — yakalanan her hatanın tek geçiş noktası. Bu sürüm
+  sadece `console.error`'a yazar; `modules/error-tracking` seçilirse Sentry'li
+  sürümü bu dosyanın üzerine yazılır ve çağıran taraf hiç değişmez.
 - `src/theme/` — light/dark renk paleti, `useTheme()`
 - `src/components/PressableScale.tsx` — basınca küçülen buton + haptik
 - `src/components/AnimatedModal.tsx` — backdrop + swipe-to-dismiss modal
@@ -41,3 +44,10 @@ gerekiyorsa `<AnimatedModal nested>` kullan; sıradaki modal'ı sabit bir
 `@expo-google-fonts/<font>` ekleyeceksen `useFonts` askıda kalabileceği için
 `App.tsx`'teki oturum timeout desenini fontlar için de tekrarla — yoksa splash
 sonsuza dek dönebilir.
+
+## Hata yakalarken
+
+`console.error` yerine `reportError("Sabit başlık", err)` kullan. Başlık sabit ve
+gruplanabilir olmalı; değişken veriyi üçüncü argümandaki `context`'e koy.
+Beklenen kullanıcı hatalarını (yanlış kod, rate limit) `reportError`'dan
+geçirme — örnek ayrım `core/auth`'daki `translateAuthError`'da.

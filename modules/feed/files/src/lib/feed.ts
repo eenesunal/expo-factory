@@ -1,3 +1,4 @@
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type Post = {
@@ -34,7 +35,7 @@ export async function fetchPosts(cursor?: string): Promise<Post[]> {
 
   const { data, error } = await query;
   if (error) {
-    console.error("Akış okunamadı:", error);
+    reportError("Akış okunamadı", error);
     return [];
   }
   return (data ?? []) as Post[];

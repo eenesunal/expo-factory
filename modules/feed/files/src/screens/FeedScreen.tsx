@@ -3,6 +3,7 @@ import { FlatList, RefreshControl, SafeAreaView, StyleSheet, Text, View } from "
 import { LikeButton } from "../components/LikeButton";
 import { commentCounts, fetchPosts, PAGE_SIZE, type Post } from "../lib/feed";
 import { likeCounts } from "../lib/likes";
+import { reportError } from "../lib/reportError";
 import { useTheme } from "../theme";
 
 // Başlangıç ekranı — gönderi oluşturma, yorum ekranı ve profil bilgisi
@@ -39,7 +40,7 @@ export function FeedScreen() {
   }, [loadCounts]);
 
   useEffect(() => {
-    load().catch((err) => console.error("Akış yüklenemedi:", err));
+    load().catch((err) => reportError("Akış yüklenemedi", err));
   }, [load]);
 
   async function loadMore() {

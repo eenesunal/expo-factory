@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Purchases from "react-native-purchases";
 import { isRevenueCatConfigured } from "./purchases";
+import { reportError } from "./reportError";
 
 // ABONELİK entitlement'ı — tüketilebilir kredi değil. Kredi bazlı model için
 // `credits` modülüne bak.
@@ -13,7 +14,7 @@ export async function hasEntitlement(entitlement: string): Promise<boolean> {
     // Ağ hatasında kapalı varsayıyoruz. Çevrimdışıyken de açık kalmasını
     // istiyorsan RevenueCat'in kendi cache'i zaten son bilinen durumu döner —
     // burada patlaması ancak SDK hiç configure edilmediyse olur.
-    console.error("Entitlement okunamadı:", err);
+    reportError("Entitlement okunamadı", err);
     return false;
   }
 }

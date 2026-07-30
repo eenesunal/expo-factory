@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type UploadResult =
@@ -65,7 +66,7 @@ export async function pickAndUploadImage(options?: {
     upsert: true,
   });
   if (error) {
-    console.error("Yükleme hatası:", error);
+    reportError("Yükleme hatası", error);
     return { ...empty, error: "Dosya yüklenemedi. Lütfen tekrar dene." };
   }
 

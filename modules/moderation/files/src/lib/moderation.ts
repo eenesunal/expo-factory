@@ -1,3 +1,4 @@
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type ReportTarget = { type: string; id: string };
@@ -25,7 +26,7 @@ export async function reportContent(
   // 23505 = unique_violation: aynı içeriği ikinci kez raporlamak hata değil,
   // kullanıcıya "aldık" demek yeterli.
   if (error && error.code !== "23505") {
-    console.error("Rapor gönderilemedi:", error);
+    reportError("Rapor gönderilemedi", error);
     return { error: "Rapor gönderilemedi. Lütfen tekrar dene." };
   }
   return { error: null };

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type Message = {
@@ -60,7 +61,7 @@ export function useChat(roomId: string) {
       .limit(PAGE_SIZE)
       .then(({ data, error }) => {
         if (!active) return;
-        if (error) console.error("Mesajlar okunamadı:", error);
+        if (error) reportError("Mesajlar okunamadı", error);
         const rows = ((data ?? []) as Message[]).reverse();
         rows.forEach((m) => seen.current.add(m.id));
         setMessages(rows);

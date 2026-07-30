@@ -1,3 +1,4 @@
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type SearchHit = {
@@ -18,7 +19,7 @@ export async function search(query: string, limit = 20): Promise<SearchHit[]> {
 
   const { data, error } = await supabase.rpc("search_text", { p_query: trimmed, p_limit: limit });
   if (error || !data) {
-    if (error) console.error("Arama hatası:", error);
+    if (error) reportError("Arama hatası", error);
     return [];
   }
   return (data as { entity_id: string; title: string; content: string | null; score: number }[]).map(

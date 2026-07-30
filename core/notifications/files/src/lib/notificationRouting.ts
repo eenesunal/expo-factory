@@ -2,6 +2,7 @@ import * as Notifications from "expo-notifications";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 import { navigationRef } from "./navigation";
+import { reportError } from "./reportError";
 
 // Bildirime dokunulunca `content.data.screen` ile belirtilen ekrana gider.
 // Uygulama tamamen kapalıyken açılan bildirim için de çalışır
@@ -28,7 +29,7 @@ export function useNotificationRouting() {
       .then((response) => {
         if (response) handleResponse(response);
       })
-      .catch((err) => console.error("Açılış bildirimi okunamadı:", err));
+      .catch((err) => reportError("Açılış bildirimi okunamadı", err));
 
     const subscription = Notifications.addNotificationResponseReceivedListener(handleResponse);
     return () => subscription.remove();

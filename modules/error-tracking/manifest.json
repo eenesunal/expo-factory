@@ -1,0 +1,30 @@
+{
+  "name": "error-tracking",
+  "description": "Sentry ile crash/exception takibi, source map'li stack trace ve alert kuralları",
+  "dependsOn": [],
+  "envVars": ["EXPO_PUBLIC_SENTRY_DSN", "SENTRY_AUTH_TOKEN"],
+  "packageDependencies": ["@sentry/react-native@~7.11.0"],
+  "filesToCopy": ["index.ts", "src"],
+  "schemaFragment": "schema.sql",
+  "appJson": {
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "__SENTRY_ORG__",
+          "project": "__SENTRY_PROJECT__"
+        }
+      ]
+    ]
+  },
+  "navigationScreens": [],
+  "setupSteps": [
+    "sentry.io'da hesap aç ve React Native platformunda bir proje oluştur. DSN'i `.env`'deki `EXPO_PUBLIC_SENTRY_DSN`'e yaz.",
+    "`app.json` içindeki `__SENTRY_ORG__` ve `__SENTRY_PROJECT__` placeholder'larını gerçek org/proje slug'ıyla değiştir (Sentry > Settings > General Settings). Bunlar build anında source map yüklemek için kullanılıyor.",
+    "Auth token üret: Sentry > Settings > Auth Tokens > yeni token, `project:releases` + `org:read` scope'ları. Sonra `eas env:create --name SENTRY_AUTH_TOKEN --type secret --value <token>` — SECRET olarak, `EXPO_PUBLIC_` DEĞİL (bu token org'una yazma yetkisi verir).",
+    "GERÇEK bir build'de doğrula: bir butona geçici olarak `throw new Error(\"sentry testi\")` koy, internal/TestFlight build'inde tetikle, Sentry'de stack trace'in dosya+satır olarak OKUNABİLİR geldiğini gör. `expo start`'ta doğrulamak yetmez — source map sorunu sadece gerçek build'de ortaya çıkar.",
+    "Alert kuralları kur: Sentry > Alerts > Create Alert. En az iki kural: (1) yeni bir issue açıldığında, (2) bir issue 1 saat içinde N'den fazla kullanıcıyı etkilediğinde. Hedef olarak e-posta ya da Slack seç — varsayılan haliyle Sentry sana HİÇBİR ŞEY bildirmez, sadece dashboard'a yazar.",
+    "Yayın sonrası Sentry > Releases'te crash-free session rate'i izle. Yeni sürümden sonra düşüyorsa sebebi bulana kadar dağıtımı durdur.",
+    "App Store Connect > App Privacy: crash verisi topladığını beyan et (\"Diagnostics\" > \"Crash Data\"). `docs/privacy.html`'e de Sentry'yi ekle."
+  ]
+}

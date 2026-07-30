@@ -1,3 +1,4 @@
+import { reportError } from "./reportError";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 export type ScoreRow = { rank: number; userId: string; score: number };
@@ -15,7 +16,7 @@ export async function submitScore(
     p_mode: options?.mode ?? "max",
   });
   if (error) {
-    console.error("Skor kaydedilemedi:", error);
+    reportError("Skor kaydedilemedi", error);
     return null;
   }
   return data as number;

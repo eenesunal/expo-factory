@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { myRank, topScores, type ScoreRow } from "../lib/leaderboard";
+import { reportError } from "../lib/reportError";
 import { useTheme } from "../theme";
 
 const BOARD = "default";
@@ -16,7 +17,7 @@ export function LeaderboardScreen() {
         setRows(top);
         setMine(own);
       })
-      .catch((err) => console.error("Sıralama yüklenemedi:", err));
+      .catch((err) => reportError("Sıralama yüklenemedi", err));
   }, []);
 
   return (
