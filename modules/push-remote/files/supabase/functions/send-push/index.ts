@@ -23,7 +23,8 @@ const CHUNK = 100;
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
-  if (req.headers.get("Authorization") !== `Bearer ${ADMIN_SECRET}`) {
+  // Secret tanımlı değilse karşılaştırma "Bearer undefined" olur ve o başlıkla gelen herkes geçerdi.
+  if (!ADMIN_SECRET || req.headers.get("Authorization") !== `Bearer ${ADMIN_SECRET}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 

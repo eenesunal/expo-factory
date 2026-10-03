@@ -30,7 +30,8 @@ const REFUND_EVENTS = new Set(["REFUND", "CANCELLATION"]);
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
-  if (req.headers.get("Authorization") !== `Bearer ${WEBHOOK_SECRET}`) {
+  // Secret tanımlı değilse karşılaştırma "Bearer undefined" olur ve o başlıkla gelen herkes geçerdi.
+  if (!WEBHOOK_SECRET || req.headers.get("Authorization") !== `Bearer ${WEBHOOK_SECRET}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 

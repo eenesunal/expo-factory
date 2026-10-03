@@ -11,6 +11,6 @@
     "`npm install -g eas-cli && eas login && eas init` (app.json'a projectId yazar).",
     "`node scripts/setup-eas-env.mjs production` — .env'deki her EXPO_PUBLIC_* değişkenini EAS'a kaydeder. BU ADIM ATLANIRSA production build'de tüm env değişkenleri undefined olur ve uygulama backend'e hiç bağlanamaz.",
     "`eas.json`'da kullandığın build profilinde `\"environment\": \"production\"` (veya preview/development) satırının durduğunu doğrula — env değişkenleri ancak bu satırla build'e enjekte edilir.",
-    "`eas.json` > submit.production > ios: appleId / ascAppId / appleTeamId alanlarını kendi App Store Connect bilgilerinle doldur."
+    "App Store Connect kaydı açılınca `eas.json`'a submit.production.ios bölümünü (appleId, ascAppId, appleTeamId) GERÇEK değerlerle ekle. Boş string bırakma: EAS boş alanlı eas.json'ı geçersiz sayar ve `eas init` dahil her komut durur."
   ]
 }
