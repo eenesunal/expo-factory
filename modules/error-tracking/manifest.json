@@ -2,9 +2,17 @@
   "name": "error-tracking",
   "description": "Sentry ile crash/exception takibi, source map'li stack trace ve alert kuralları",
   "dependsOn": [],
-  "envVars": ["EXPO_PUBLIC_SENTRY_DSN", "SENTRY_AUTH_TOKEN"],
-  "packageDependencies": ["@sentry/react-native@~7.11.0"],
-  "filesToCopy": ["index.ts", "src"],
+  "envVars": [
+    "EXPO_PUBLIC_SENTRY_DSN",
+    "SENTRY_AUTH_TOKEN"
+  ],
+  "packageDependencies": [
+    "@sentry/react-native@~7.11.0"
+  ],
+  "filesToCopy": [
+    "index.ts",
+    "src"
+  ],
   "schemaFragment": "schema.sql",
   "appJson": {
     "plugins": [
@@ -19,6 +27,7 @@
   },
   "navigationScreens": [],
   "setupSteps": [
+    "DİKKAT: Sentry org/proje ve SENTRY_AUTH_TOKEN (EAS secret) ayarlanmadan alınan her native build, Gradle/Xcode'un kaynak haritası yükleme adımında 'Auth token is required' ile DÜŞER. Sentry hazır olana kadar eas.json build profillerine env: { \"SENTRY_DISABLE_AUTO_UPLOAD\": \"true\" } ekle (development/preview'da varsayılan olarak var); production'da token ayarlanınca kaldır.",
     "sentry.io'da hesap aç ve React Native platformunda bir proje oluştur. DSN'i `.env`'deki `EXPO_PUBLIC_SENTRY_DSN`'e yaz.",
     "`app.json` içindeki `__SENTRY_ORG__` ve `__SENTRY_PROJECT__` placeholder'larını gerçek org/proje slug'ıyla değiştir (Sentry > Settings > General Settings). Bunlar build anında source map yüklemek için kullanılıyor.",
     "Auth token üret: Sentry > Settings > Auth Tokens > yeni token, `project:releases` + `org:read` scope'ları. Sonra `eas env:create --name SENTRY_AUTH_TOKEN --type secret --value <token>` — SECRET olarak, `EXPO_PUBLIC_` DEĞİL (bu token org'una yazma yetkisi verir).",
