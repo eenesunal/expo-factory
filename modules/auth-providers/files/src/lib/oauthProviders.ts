@@ -7,6 +7,17 @@ import { isSupabaseConfigured, supabase } from "./supabase";
 export const isAppleSignInAvailable = () =>
   Platform.OS === "ios" ? AppleAuthentication.isAvailableAsync() : Promise.resolve(false);
 
+// useGoogleSignIn, bu platformun client ID'si yoksa render sırasında istisna FIRLATIR
+// (expo-auth-session invariant'ı) — ekranın tamamı çöker. Hook'u yalnız bu true iken
+// mount edilen ayrı bir bileşende çağır (koşullu hook çağrılamaz).
+export const isGoogleSignInConfigured = Boolean(
+  Platform.select({
+    ios: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+    android: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
+    default: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+  })
+);
+
 // ÖNEMLİ — anonim oturumdaki veri:
 // signInWithIdToken YENİ bir oturum açar; mevcut anonim kullanıcının verisi
 // otomatik TAŞINMAZ. İki seçenek var:
@@ -46,6 +57,7 @@ export async function signInWithApple(): Promise<{ error: string | null }> {
 }
 
 // Google native akışı bir hook gerektiriyor (redirect'i AuthSession yönetiyor).
+// DİKKAT: yalnız isGoogleSignInConfigured true iken mount edilen bileşende çağır.
 // Kullanım:
 //   const { promptAsync, ready } = useGoogleSignIn();
 //   <Button disabled={!ready} onPress={() => promptAsync()} />

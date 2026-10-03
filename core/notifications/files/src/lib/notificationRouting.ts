@@ -19,10 +19,11 @@ export function useNotificationRouting() {
         params?: Record<string, unknown>;
       } | null;
       if (!data?.screen || !navigationRef.isReady()) return;
-      // navigate tipleri runtime'da gelen bir string ile eşleşmediği için
-      // burada `never`'a daraltıyoruz — ekran adının RootStackParamList'te
-      // gerçekten var olduğunu bildirimi üreten taraf garanti ediyor.
-      navigationRef.navigate(data.screen as never, data.params as never);
+      // navigate'in tipli imzası runtime'da gelen bir string'i kabul etmez;
+      // ekran adının RootStackParamList'te gerçekten var olduğunu bildirimi
+      // üreten taraf garanti ediyor. (`as never` iki argümanlı overload'da
+      // TS2345 veriyordu — imzayı gevşetmek tek doğru cast.)
+      (navigationRef.navigate as (screen: string, params?: object) => void)(data.screen, data.params);
     }
 
     Notifications.getLastNotificationResponseAsync()

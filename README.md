@@ -49,6 +49,7 @@ modules/       # seçtiğin kadarı
   feed             gönderi + yorum akışı            → likes
   file-upload      Supabase Storage'a görsel yükleme
   geolocation      konum izni + "yakındakiler" (Haversine, PostGIS'siz)
+  i18n             çoklu dil (TR + EN): tipli sözlük, çoğul, cihaz dili
   leaderboard      herhangi bir skora göre sıralama
   likes            entity_id bazlı beğeni + en çok beğenilenler
   media-render     sunucuda paylaşılabilir görsel/video (Docker + ffmpeg)
@@ -235,7 +236,7 @@ Kullanıcıya gösterilen adı `name` ile değiştirmeye çalışma —
   çıktıyı **gözle** kontrol et (font eksikse metin boş kutucuk çıkar).
 - `deep-linking` modülü `App.tsx`'e `linking` prop'unu otomatik eklemiyor —
   o tek satırı elle ekle (modül README'sinde yazılı).
-- Tüm kullanıcıya dönük metinler ve yorumlar Türkçe.
+- Tüm kullanıcıya dönük metinler ve yorumlar Türkçe. Çoklu dil için `modules/i18n`; core ekranlarının metinleri henüz `t()`'ye taşınmadı.
 
 ## Lisans
 
